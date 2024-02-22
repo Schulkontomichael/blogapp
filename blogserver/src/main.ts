@@ -28,14 +28,7 @@ const app = await NestFactory.create<NestFastifyApplication>(
   app.enableCors({
     origin: '*',
     methods: ['GET', 'PUT', 'OPTIONS', 'POST', 'DELETE'],
-    allowedHeaders: [
-      'Access-Control-Allow-Origin',
-      'Origin',
-      'X-Requested-With',
-      'Accept',
-      'Content-Type',
-      'Authorization',
-    ],
+    allowedHeaders: 'Access-Control-Allow-Origin',
     credentials:true,
   });
   app.setGlobalPrefix('/api');
