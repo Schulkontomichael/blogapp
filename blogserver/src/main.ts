@@ -14,17 +14,30 @@ const CORS_OPTIONS = {
     'Content-Type',
     'Authorization',
   ],
-  exposedHeaders: 'Authorization',
-  credentials: false,
+  credentials: true,
   methods: ['GET', 'PUT', 'OPTIONS', 'POST', 'DELETE'],
 };
 
 async function bootstrap() {
   const adapter = new FastifyAdapter();
-  adapter.enableCors(CORS_OPTIONS);
-  const app = await NestFactory.create<NestFastifyApplication>(
+//  adapter.enableCors(CORS_OPTIONS);
+  
+const app = await NestFactory.create<NestFastifyApplication>(
     AppModule, adapter,
   );
+  app.enableCors({
+    origin: '*',
+    methods: ['GET', 'PUT', 'OPTIONS', 'POST', 'DELETE'],
+    allowedHeaders: [
+      'Access-Control-Allow-Origin',
+      'Origin',
+      'X-Requested-With',
+      'Accept',
+      'Content-Type',
+      'Authorization',
+    ],
+    credentials:true,
+  });
   app.setGlobalPrefix('/api');
   await app.listen(3000);
 }
